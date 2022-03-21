@@ -6,7 +6,7 @@ int numArrLen(int *array) {
     
     int accum = 0;
     int length;
-    for(int i = 1; array[accum] != (INT_MIN); i++) {
+    for(int i = 1; array[accum] != (INT_MAX); i++) {
         accum++;
         length = i;
     }
@@ -34,7 +34,7 @@ int main() {
         }
         accessSaved = i + 1;
     }
-    arrayBitField[accessSaved] = INT_MIN;
+    arrayBitField[accessSaved] = INT_MAX;
 
     arrayBitFieldLen = numArrLen(arrayBitField);
 
