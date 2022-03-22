@@ -55,12 +55,39 @@ uint32_t bitMask(uint32_t bitField, uint8_t bitMagnitude, uint8_t option) {
     }
 }
 
-uint32_t *intArrayReverser(int *array, int len){
-    int result[32];
-    for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
-        result[i] = array[j];
+uint32_t *arrayReverser(void *array, int len, int type){
+    if(type == INT) {
+        int result[32];
+        int *intArray = array;
+        for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
+            result[i] = intArray[j];
+        }
+        return result;
     }
-    return result;
+    if(type == SING_FLOAT) {
+        float result[32];
+        float *singArray = array;
+        for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
+            result[i] = singArray[j];
+        }
+        return result;
+    }
+    if(type == DOUBLE_FLOAT) {
+        double result[32];
+        double *doubleArray = array;
+        for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
+            result[i] = doubleArray[j];
+        }
+        return result;
+    }
+    if(type == QUAD_FLOAT) {
+        long double result[32];
+        long double *quadArray = array;
+        for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
+            result[i] = quadArray[j];
+        }
+        return result;
+    }
 }
 
 uint32_t *literalToArray(void *arg, int type) {
