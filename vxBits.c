@@ -3,9 +3,9 @@
 
 #define HIGH 1
 #define LOW 2
-#define INT 3
+#define INT 342420
 #define SING_FLOAT 4
-#define DOUBLE_FLOAT 5
+#define DOUBLE_FLOAT 510911
 #define QUAD_FLOAT 6
 
 
@@ -55,42 +55,42 @@ uint32_t bitMask(uint32_t bitField, uint8_t bitMagnitude, uint8_t option) {
     }
 }
 
-uint32_t *arrayReverser(void *array, int len, int type){
+void *arrayReverser(void *array, int len, int type){
     if(type == INT) {
-        int result[32];
+        static int result[32];
         int *intArray = array;
         for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
             result[i] = intArray[j];
         }
-        return result;
+        return (void*)result;
     }
     if(type == SING_FLOAT) {
-        float result[32];
+        static float result[32];
         float *singArray = array;
         for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
             result[i] = singArray[j];
         }
-        return result;
+        return (void*)result;
     }
     if(type == DOUBLE_FLOAT) {
-        double result[32];
+        static double result[32];
         double *doubleArray = array;
         for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
             result[i] = doubleArray[j];
         }
-        return result;
+        return (void*)result;
     }
     if(type == QUAD_FLOAT) {
-        long double result[32];
+        static long double result[32];
         long double *quadArray = array;
         for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
             result[i] = quadArray[j];
         }
-        return result;
+        return (void*)result;
     }
 }
 
-uint32_t *literalToArray(void *arg, int type) {
+int32_t *literalToBitArray(void *arg, int type) {
     if(type == INT) {
         int *integer = arg;
         int intArray[32];
@@ -104,7 +104,7 @@ uint32_t *literalToArray(void *arg, int type) {
             intArray[sentinelAccess] = INT_MAX; 
         }
 
-        int bitArray = intArrayReverser(intArray, sentinelAccess);
+        int *bitArray = arrayReverser(intArray, sentinelAccess, INT);
 
         return bitArray;
     }
