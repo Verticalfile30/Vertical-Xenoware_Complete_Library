@@ -25,6 +25,8 @@ int vxStdWrite(const char *string);
 int vxStreamWrite(int fildes, const char *string, ...);
 int vxCharWrite(char arg, int fd);
 
+int vxNeoWrite(int fildes, const char *string, ...);
+
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes);
 int vxTypeDealloc(ptr *object);
 

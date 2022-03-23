@@ -7,7 +7,7 @@ PRE=./obj/library.o ./obj/test.o ./obj/stdLib.o
 $(TARGET): $(PRE)
 	$(CC) $(CFLAGS) $^ -o $@
 
-./obj/library.o: vxBits.c
+./obj/library.o: ./dataManip/vxBits.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 ./obj/test.o: test.c

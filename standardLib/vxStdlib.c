@@ -128,6 +128,91 @@ int vxStreamWrite(int fildes, const char *string, ...) {
 }
 
 
+va_list *argIncrement(va_list *argList, int increment) {
+    int tmp;
+    //va_list *newArgList = argList;
+    for(int i = 1; i <= increment; i++) {
+        tmp = va_arg(*argList, int);
+    }
+    return argList;
+}
+
+int vxNeoWrite(int fildes, const char *string, ...) {
+    
+    va_list list[2];
+    va_list *currentList;
+
+    va_start(list[0], string);
+    int nargN;
+    char nargC;
+    double nargD;
+    char *nargS;
+
+    for(int i = 0; i < 28; i++) {
+        va_copy(list[1], list[0]);
+        currentList = &list[1];
+        currentList = argIncrement(currentList, i);
+        
+        
+        if((nargN = va_arg(*currentList, int) == INTEGER)) {
+            i++;
+            va_copy(list[1], list[0]);
+            currentList = &list[1];
+            currentList = argIncrement(currentList, i);
+            nargN = va_arg(*currentList, int);
+            //i++;
+            vxIntWrite(nargN, fildes);
+            continue;
+        }
+        va_copy(list[1], list[0]);
+        currentList = &list[1];
+        currentList = argIncrement(currentList, i);        
+
+        if((nargN = va_arg(*currentList, int) == CHARACTER)) {
+            i++;
+            va_copy(list[1], list[0]);
+            currentList = &list[1];
+            currentList = argIncrement(currentList, i);
+            nargC = (char)va_arg(*currentList, int);
+            vxCharWrite(nargC, fildes);
+            continue;
+        }
+        va_copy(list[1], list[0]);
+        currentList = &list[1];
+        currentList = argIncrement(currentList, i);
+
+        if((nargN = va_arg(*currentList, int) == STRING)) {
+            i++;
+            va_copy(list[1], list[0]);
+            currentList = &list[1];
+            currentList = argIncrement(currentList, i);
+            nargS = va_arg(*currentList, char *);
+            vxStdWrite(nargS);
+            continue;
+        }
+        va_copy(list[1], list[0]);
+        currentList = &list[1];
+        currentList = argIncrement(currentList, i);
+
+        if((nargN = va_arg(*currentList, int) == DOUBLE)) {
+            i++;
+            va_copy(list[1], list[0]);
+            currentList = &list[1];
+            currentList = argIncrement(currentList, i);
+            nargD = va_arg(*currentList, double);
+            vxDouWrite(nargD, fildes);
+            continue;
+        }
+        va_copy(list[1], list[0]);
+        currentList = &list[1];
+        currentList = argIncrement(currentList, i);        
+    }
+
+    return 1;
+}
+
+
+
 
 
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes) {
@@ -144,6 +229,8 @@ ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes) {
         object->size = sizeArg;
         return object;
     }
+
+    return -1;
 }
 
 int vxTypeDealloc(ptr *object) {

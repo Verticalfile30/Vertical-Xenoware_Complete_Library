@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "vxBits.h"
+#include "dataManip/vxBits.h"
 #include "standardLib/vxStdlib.h"
 
 int main() {
@@ -12,13 +12,14 @@ int main() {
         arr->inr[i] = i;
     }
     for(int i = 0; i < 10; i++) {
-        vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], CHARACTER, '\n');
+        //vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], CHARACTER, '\n');
+        vxNeoWrite(fileno(stdout), "", INTEGER, arr->inr[i], STRING, " NeoWriter", CHARACTER, '\n');
     }
 
     arr->inr = arrayReverser(arr->inr, 10, INTEGER);
 
         for(int i = 0; i < 10; i++) {
-        vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], CHARACTER, '\n');
+        vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], STRING, " StreamWriter", CHARACTER, '\n');
     }
 
     return 0;
