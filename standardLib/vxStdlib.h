@@ -9,6 +9,13 @@
 #define DOUBLE 510911
 #define PAGESIZE
 
+#if (__STDC_VERSION__ != 201710L)
+    #error "You are using the wrong standard :("
+#endif
+
+#ifndef __amd64__
+#error "Only compilable on amd64 family of processors"
+#endif
 
 typedef struct pointer {
     int *inr;

@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <limits.h>
+#include "vxBits.h"
 
 #define HIGH 1
 #define LOW 2
@@ -7,20 +8,22 @@
 #define SING_FLOAT 4
 #define DOUBLE_FLOAT 510911
 #define QUAD_FLOAT 6
+#define BIG 910533
+
+
+
 
 
 int numArrLen(int *array) {
     
-    int accum = 0;
+    int acc = 0;
     int length;
-    for(int i = 1; array[accum] != (INT_MAX); i++) {
-        accum++;
+    for(int i = 1; array[acc] != (INT_MAX); i++) {
+        acc++;
         length = i;
     }
     return length;
 }
-
-
 
 uint32_t setFlag(uint32_t bitField, uint8_t bitMagnitude) {
     bitField |= (0b0000000000000001 << bitMagnitude);
@@ -29,7 +32,6 @@ uint32_t setFlag(uint32_t bitField, uint8_t bitMagnitude) {
 
 _Bool isFlagSet(uint32_t bitField, uint8_t bitMagnitude) {
     uint32_t testFlag = bitField >> bitMagnitude;
-    
     
     if((testFlag % 2) == 1) {
         return 1;
@@ -43,6 +45,15 @@ uint32_t toggleFlag(uint32_t bitField, uint8_t bitMagnitude) {
     return bitField;
 }
 
+/*=============================================================================
+SYNOPSIS: REVERSES ANY GIVEN ARRAY 
+
+ARGS: "BITFIELD": BITS TO BE MODIFIED | "BITMAGNITUDE": WHICH BIT WILL BE MODIFED
+
+RETURN: BITFIELD AS INTEGER
+
+ANOMALOUS CLASS: SAFE
+ *===========================================================================*/
 uint32_t bitMask(uint32_t bitField, uint8_t bitMagnitude, uint8_t option) {
     if(option == HIGH) {
         int bitMasker = bitField >> bitMagnitude;
@@ -55,6 +66,16 @@ uint32_t bitMask(uint32_t bitField, uint8_t bitMagnitude, uint8_t option) {
     }
 }
 
+/*=============================================================================
+SYNOPSIS: REVERSES ANY GIVEN ARRAY 
+
+ARGS: "ARRAY": VOID POINTER TO GIVEN ARRAY | "LEN": DETERMINES TERMINATING LENGTH |
+    "TYPE": DETERMINES DATA TYPE ARRAY.
+
+RETURN: RETURNS A POINTER TO RESULTING ARRAY
+
+ANOMALOUS CLASS: SAFE
+ *===========================================================================*/
 void *arrayReverser(void *array, int len, int type){
     if(type == INT) {
         static int result[32];
@@ -88,12 +109,24 @@ void *arrayReverser(void *array, int len, int type){
         }
         return (void*)result;
     }
+
+    return 0;
 }
 
-int32_t *literalToBitArray(void *arg, int type) {
+/*=============================================================================
+SYNOPSIS: TAKES AN INTEGER LITERAL AND CONVERTS INTO A BIT FIELD. 
+
+ARGS: "ARG": VOID POINTER TO THE LITERAL | "TYPE": DETERMINES WHAT KIND OF INTEGER TYPE |
+    "ENDIAN_STYLE": DETERMINES IF LSB OR MSB SHOULD BE IN ACCESS [0].
+
+RETURN: RETURNS A POINTER TO RESULTING ARRAY
+
+ANOMALOUS CLASS: SAFE
+ *===========================================================================*/
+int32_t *literalToBitArray(void *arg, int type, int endianStyle) {
     if(type == INT) {
         int *integer = arg;
-        int intArray[32];
+        static int intArray[32];
         int sentinelAccess;
         
         for(int i = 0; i < 32; i++) {
@@ -104,8 +137,72 @@ int32_t *literalToBitArray(void *arg, int type) {
             intArray[sentinelAccess] = INT_MAX; 
         }
 
-        int *bitArray = arrayReverser(intArray, sentinelAccess, INT);
+        if(endianStyle == BIG) {
+            int *bigArray = arrayReverser(intArray, sentinelAccess, INT);
+            return bigArray;
+        }
+        
 
-        return bitArray;
+        return intArray;
     }
+
+    return 0;
 }
+
+int32_t singleToInt(float arg) {
+    return *((int32_t*)&arg);
+}
+
+
+/*=============================================================================
+NOTE: THIS FUNCTION IS DEPRECATED. UNSAFE CLASSIFICATION: KETER
+ *===========================================================================*/
+/*singleFloat *floatingPointToBitArray(void *arg, const char *type) {
+    //get type
+    {
+        if(type == "32") {
+            static singleFloat bits;
+            float *single = arg;
+            int32_t singleAsInt = singleToInt(*single);
+            
+            //add mantissa to struct
+            {
+                int sentinelAccess;
+                for(int i = 0; i < 23; i++) {
+                    bits.mantissa[i] = isFlagSet(singleAsInt, i);
+                    sentinelAccess = i + 1;
+                }
+                bits.mantissa[sentinelAccess] = CHAR_MAX;
+
+                //add exponent to struct
+                {
+                    for(int i = 0; i < 23; i++) {
+                        if(i < 23) {
+                            continue;
+                        } else if(i >= 23 && i < 32) {
+                            bits.exponent[i - 23] = isFlagSet(singleAsInt, i);
+                            sentinelAccess = i + 1;
+                        }
+                        bits.exponent[sentinelAccess] = CHAR_MAX;
+                    }
+
+                    //add sign bit
+                    {
+                        bits.sign = isFlagSet(singleAsInt, 31);
+                    }
+
+                    //return 
+                    {
+                        return &bits;
+                    }
+
+                }
+            }
+        }
+    }
+
+    //add bits to struct
+
+    return 0;
+}
+*/
