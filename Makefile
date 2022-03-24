@@ -8,7 +8,7 @@ $(TARGET): $(PRE)
 	$(CC) $(CFLAGS) $^ -o $@
 
 ./obj/library.o: ./dataManip/vxBits.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) -c $^ -o $@ 
 
 ./obj/test.o: test.c
 	$(CC) $(CFLAGS) -c $^ -o $@

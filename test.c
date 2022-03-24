@@ -5,6 +5,7 @@
 #include "standardLib/vxStdlib.h"
 
 int main() {
+    
     //make an array
     int uggh = INTEGER;
     ptr *arr = vxTypeAlloc(sizeof(int32_t) * 10, uggh, 0);
@@ -21,6 +22,8 @@ int main() {
         for(int i = 0; i < 10; i++) {
         vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], STRING, " StreamWriter", CHARACTER, '\n');
     }
+
+
 
     return 0;
 }
