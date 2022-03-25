@@ -76,6 +76,21 @@ int vxCharWrite(char arg, int fd) {
     return 1;
 }
 
+/*=============================================================================
+SYNOPSIS: WRITES TO STDOUT 
+
+RETURN: INTEGER CODE FOR SUCCESS
+
+ANOMALOUS CLASS: KETER
+
+NOTE: vxNeoWrite DEEMED UNSAFE, IT HAS BEEN RECLASSIFIED AS EUCLID, 
+vxStreamWrite IS CONSIDERED THE SAFER OPTION
+
+**MEMORY CORRUPTION ISSUES HAVE BEEN REPORTED THROUGHOUT THE ENTIRE LIBRARY, 
+UNTIL FURTHER NOTICE, DO NOT USE THE OUTPUT OR OUTPUT RELATED PROCEDURES.*
+
+ANOMALOUS CLASS: KETER
+*===========================================================================*/
 int vxStreamWrite(int fildes, const char *string, ...) {
 
     //va_list *list = vxAlloc(sizeof(va_list) * 30, ANON_ALLOC, -1); //allocate an array of 
@@ -137,6 +152,16 @@ va_list *argIncrement(va_list *argList, int increment) {
     return argList;
 }
 
+/*=============================================================================
+SYNOPSIS: WRITES TO STDOUT 
+
+RETURN: INTEGER CODE FOR SUCCESS
+
+ANOMALOUS CLASS: EUCLID
+
+NOTE: COUNCIL DEBATING ON RELIABILITY, EXPECT TO BE ARCHIVED AND DEPRECATED
+WITHIN ONE MONTH.
+*===========================================================================*/
 int vxNeoWrite(int fildes, const char *string, ...) {
     
     va_list list[2];

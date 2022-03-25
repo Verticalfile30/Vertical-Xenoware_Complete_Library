@@ -153,6 +153,56 @@ int32_t singleToInt(float arg) {
     return *((int32_t*)&arg);
 }
 
+int32_t base10Array_toLiteral(char *array) {
+    int endVal;
+    //main procedure
+    {
+        int *pseudoPara = &endVal;
+        for(int i = 0, mag = 1; array[i] != CHAR_MAX; i++, mag *= 10) {
+            pseudoPara[i] = array[i] * mag;
+        } 
+    }
+
+    return endVal;
+}
+
+int32_t integerParse(const char *string, int len) {
+    char *result;
+    int32_t number;
+    
+    //function subprocedures
+    inline char *numberFilter() {
+        static char array[32];
+        int sentinelAccess;
+        char *retString = &array[0];
+
+        for(int i = 0, j = 0; i < len; i++) {
+            if(string[i] >= 0x30 && string[i] <= 0x39) {
+                retString[j] = string[i];
+                
+                j++; 
+            }
+            sentinelAccess = j;   
+        }
+        retString[sentinelAccess + 1] = CHAR_MAX;
+        return retString;     
+    };
+
+    inline char *asciiSubtract(char *initialArray, int len) {
+        for(int i = 0; i < len || initialArray[i] != CHAR_MAX; i++) {
+            initialArray[i] = initialArray[i] - 0x30;
+        }
+
+        return initialArray;
+    };
+
+
+    result = numberFilter();
+    result = asciiSubtract(result, 14);
+    result = arrayReverser(result, 14, INT);
+    number = base10Array_toLiteral(result);
+    return number;
+}
 
 /*=============================================================================
 NOTE: THIS FUNCTION IS DEPRECATED. UNSAFE CLASSIFICATION: KETER

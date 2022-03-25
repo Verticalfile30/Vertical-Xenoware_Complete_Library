@@ -1,6 +1,6 @@
 
 CC=gcc
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g 
 TARGET=./bin/program.out
 PRE=./obj/library.o ./obj/test.o ./obj/stdLib.o
 
@@ -15,3 +15,6 @@ $(TARGET): $(PRE)
 
 ./obj/stdLib.o: ./standardLib/vxStdlib.c
 	$(CC) $(CFLAGS) -c $^ -o $@
+
+clean:
+	rm -rf $(TARGET) $(PRE)
