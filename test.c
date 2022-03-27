@@ -26,10 +26,14 @@ int main() {
     char *stringVar = "HI 87654 BYE!";
     int32_t newString = integerParse(stringVar, 14);
 
-    //vxStreamWrite(1, "", STRING, string, CHARACTER, '\n');
-    //vxStreamWrite(1, "", INTEGER, newString, CHARACTER, '\n');
-    printf("%s\n", stringVar);
-    printf("%d\n", newString);
+    
+
+    vxStreamWrite(1, "", STRING, stringVar, CHARACTER, '\n');
+    vxStreamWrite(1, "", INTEGER, newString, CHARACTER, '\n');
+    //printf("%s\n", stringVar);
+    //printf("%d\n", newString);
+
+    
 
 
     return 0;
