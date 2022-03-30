@@ -79,10 +79,14 @@ ANOMALOUS CLASS: SAFE
 void *arrayReverser(void *array, int len, int type){
     if(type == INT) {
         static int result[32];
+        int sentinel;
         int *intArray = array;
         for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
             result[i] = intArray[j];
+            sentinel = i;
         }
+        result[sentinel + 1] = INT_MAX;
+
         return (void*)result;
     }
     if(type == SING_FLOAT) {
@@ -153,6 +157,61 @@ int32_t singleToInt(float arg) {
     return *((int32_t*)&arg);
 }
 
+int32_t base10Array_toLiteral(char *array) {
+    int endVal;
+    //main procedure
+    {
+        int *pseudoPara = &endVal;
+        for(int i = 0, mag = 1; array[i] != CHAR_MAX; i++, mag *= 10) {
+            pseudoPara[i] = array[i] * mag;
+        } 
+    }
+
+    return endVal;
+}
+
+
+
+/*=============================================================================
+SYNOPSIS: Parses an integers from a string.
+ *===========================================================================*/
+int32_t integerParse(const char *string, int len) {
+    char *filtered;
+    int *resultArray;
+    char filteredData[32];
+    int resultData[32];
+    int sentinel;
+    int32_t result;
+
+    //filter out non-numeric characters
+    filtered = &filteredData[0];
+    for(int i = 0, j = 0; i < len; i++) {
+        if(string[i] >= 48 && string[i] <= 57) {
+            filtered[j] = string[i];
+            sentinel = j;
+            j++;
+        }
+        
+    }
+    filtered[sentinel + 1] = CHAR_MAX;
+    
+    //convert every element by ascii things
+    resultArray = &resultData[0];
+    for(int i = 0; filtered[i] != CHAR_MAX; i++) {
+        resultArray[i] = filtered[i] - 48;
+        sentinel = i;
+    }
+    resultArray[sentinel + 1] = INT_MAX;
+
+    resultArray = arrayReverser(resultArray, sentinel + 1, INT);
+
+    //accumulate the integer
+    for(int i = 0, mag = 1; resultArray[i] != INT_MAX; i++, mag *= 10) {
+        result += resultArray[i] * mag;
+    }
+
+    return result;
+}
 
 /*=============================================================================
 NOTE: THIS FUNCTION IS DEPRECATED. UNSAFE CLASSIFICATION: KETER

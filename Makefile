@@ -1,8 +1,10 @@
 
 CC=gcc
-CFLAGS=-Wall -g
+ASM=nasm
+AFLAGS=-f elf64 -g
+CFLAGS=-Wall -g 
 TARGET=./bin/program.out
-PRE=./obj/library.o ./obj/test.o ./obj/stdLib.o
+PRE=./obj/library.o ./obj/test.o ./obj/stdLib.o ./obj/setjump.o ./obj/setjumpAsm.o
 
 $(TARGET): $(PRE)
 	$(CC) $(CFLAGS) $^ -o $@
@@ -15,3 +17,12 @@ $(TARGET): $(PRE)
 
 ./obj/stdLib.o: ./standardLib/vxStdlib.c
 	$(CC) $(CFLAGS) -c $^ -o $@
+
+./obj/setjump.o: ./setjump/vxSaveExec.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+./obj/setjumpAsm.o: ./setjump/vxSaveExecAsm.asm
+	$(ASM) $(AFLAGS) $^ -o $@
+
+clean:
+	rm -rf $(TARGET) $(PRE)

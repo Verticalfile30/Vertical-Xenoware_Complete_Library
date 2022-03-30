@@ -28,5 +28,6 @@ uint32_t bitMask(uint32_t bitField, uint8_t bitMagnitude, uint8_t option);
 void *arrayReverser(void *array, int len, int type);
 int32_t *literalToBitArray(void *arg, int type, int endianStyle);
 singleFloat *floatingPointToBitArray(void *arg, const char *type);
+int32_t integerParse(const char *string, int len);
 
 #endif
