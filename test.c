@@ -3,6 +3,7 @@
 #include <limits.h>
 #include "dataManip/vxBits.h"
 #include "standardLib/vxStdlib.h"
+#include "setjump/vxSaveExec.h"
 
 int main() {
     
@@ -33,8 +34,9 @@ int main() {
     //printf("%s\n", stringVar);
     //printf("%d\n", newString);
 
-    
-
+    void *buffer = malloc(sizeof(int32_t) * 10);
+    SaveExec(buffer);
+    RestoreExec(buffer);
 
     return 0;
 }

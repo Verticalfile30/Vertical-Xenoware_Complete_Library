@@ -2,8 +2,9 @@
 #include <stdlib.h>
 
 
-
+int SaveExec(void * buffer);
 extern void SaveExecAsm(void * buffer);
+extern void ReturnExecAsm(void * buffer);
 
 
 
@@ -12,9 +13,7 @@ int SaveExec(void * buffer) {
     return 0;
 }
 
-int main() {
-    void *driver = malloc(sizeof(int) * 30);
-    SaveExec(driver);
-
+int RestoreExec(void * buffer) {
+    ReturnExecAsm(buffer);
     return 0;
 }

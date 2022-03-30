@@ -1,16 +1,15 @@
+int foo(int add, int add2) {
+    int result = add + add2;
+    return result;
+}
+
+extern void ugh(void);
 
 int main() {
-    int integer = 1;
-    
-    int *pointer = &integer;
-    void *null = 0;
-    
-    char character = 'a';
-    char character2 = 'b';
-    
-    char *string = "Hello World!";
 
-    int array[5] = {1, 2, 3, 4, 5};
+    //int bar = foo(1, 2);
+
+    ugh();
 
     return 0;
 }
