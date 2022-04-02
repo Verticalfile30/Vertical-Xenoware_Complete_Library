@@ -29,14 +29,24 @@ int main() {
 
     
 
-    vxStreamWrite(1, "", STRING, stringVar, CHARACTER, '\n');
-    vxStreamWrite(1, "", INTEGER, newString, CHARACTER, '\n');
+    //vxStreamWrite(1, "", STRING, stringVar, CHARACTER, '\n');
+    //vxStreamWrite(1, "", INTEGER, newString, CHARACTER, '\n');
     //printf("%s\n", stringVar);
     //printf("%d\n", newString);
 
-    void *buffer = malloc(sizeof(int32_t) * 10);
-    SaveExec(buffer);
-    RestoreExec(buffer);
+    //void *buffer = malloc(sizeof(int32_t) * 10);
+    //SaveExec(buffer);
+    //RestoreExec(buffer);
+    //free(buffer);
+
+    void *bufferNew = memoryAllocate();
+    char *charBuffer = bufferNew;
+    
+    scanf("%s", charBuffer);
+
+    //vxStreamWrite(1, "", STRING, charBuffer, CHARACTER, '\n');
+
+    printf("%s\n", charBuffer);
 
     return 0;
 }

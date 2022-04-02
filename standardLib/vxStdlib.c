@@ -235,7 +235,10 @@ int vxNeoWrite(int fildes, const char *string, ...) {
 }
 
 
-
+void *memoryAllocateDriver() {
+    void *result = memoryAllocate();
+    return result;
+}
 
 
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes) {

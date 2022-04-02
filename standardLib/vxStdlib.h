@@ -37,4 +37,6 @@ int vxNeoWrite(int fildes, const char *string, ...);
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes);
 int vxTypeDealloc(ptr *object);
 
+extern void *memoryAllocate();
+
 #endif
