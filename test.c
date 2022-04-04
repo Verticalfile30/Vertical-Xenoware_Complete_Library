@@ -7,23 +7,11 @@
 
 int main() {
     
-    //make an array
-    /*int uggh = INTEGER;
-    ptr *arr = vxTypeAlloc(sizeof(int32_t) * 10, uggh, 0);
-    for(int i = 0; i < 10; i++) {
-        arr->inr[i] = i;
-    }
-    for(int i = 0; i < 10; i++) {
-        //vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], CHARACTER, '\n');
-        //vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], STRING, " NeoWriter", CHARACTER, '\n');
-    }
+    int **characterSheet = vxAlloc(sizeof(int *), ANON_ALLOC, -1);
+    
+    //make an array using vxAlloc
+    characterSheet[0] = vxAlloc(sizeof(int), ANON_ALLOC, -1);
 
-    arr->inr = arrayReverser(arr->inr, 10, INTEGER);
-
-    for(int i = 0; i < 10; i++) {
-        //vxStreamWrite(fileno(stdout), "", INTEGER, arr->inr[i], STRING, " StreamWriter", CHARACTER, '\n');
-    }
-    */
     char *stringVar = "HI 87654 BYE!";
     int32_t newString = integerParse(stringVar, 14);
 

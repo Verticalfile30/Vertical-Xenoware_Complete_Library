@@ -10,7 +10,7 @@
 #define PAGESIZE
 
 #if (__STDC_VERSION__ != 201710L)
-    #error "You are using the wrong standard :("
+#error "You are using the wrong standard :("
 #endif
 
 #ifndef __amd64__
@@ -27,6 +27,8 @@ typedef struct pointer {
 USER LEVEL FUNCTIONS ONLY
 */
 int vxAllocChk(void *pointer);
+void *vxAlloc(unsigned long sizeArg, int map, int fildes);
+int vxDealloc(void *ptr, unsigned long int sizeArg);
 int vxStdWrite(const char *string);
 
 int vxStreamWrite(int fildes, const char *string, ...);

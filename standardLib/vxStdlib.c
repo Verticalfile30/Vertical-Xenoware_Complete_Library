@@ -43,6 +43,8 @@ void *vxAlloc(unsigned long sizeArg, int map, int fildes) {
             return pointer;
         }
     }
+
+    return (void *)-1;
 }
 
 int vxDealloc(void *ptr, unsigned long int sizeArg) {
@@ -240,7 +242,14 @@ void *memoryAllocateDriver() {
     return result;
 }
 
-
+/*
+*===========================================================================*
+* FUNCTION: vxTypeAlloc
+*
+* DESCRIPTION: This function really sucks
+*
+* RETURN: ptr type
+*===========================================================================*/
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes) {
     
     if(dataType == INTEGER) {
