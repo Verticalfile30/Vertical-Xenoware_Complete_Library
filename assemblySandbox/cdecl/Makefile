@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-g -Wall
 ASM=nasm
-AFLAGS= -Wall -f elf32 -g
+AFLAGS= -Wall -f elf64 -g
 TARGET=./bin
 PRE=./asm.o ./c.o
 
