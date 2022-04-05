@@ -8,13 +8,17 @@ TARGET=./bin/program.out
 PRE=./obj/library.o ./obj/test.o ./obj/stdLib.o ./obj/testingAlloc.o ./obj/setjump.o ./obj/setjumpAsm.o
 
 $(TARGET): $(PRE)
-	$(LD) -T"linker.ld"
+	$(CC) $(CFLAGS) $^ -o $@ 
+
+./obj/expTester.so: ./standardLib/vxStdlib.c
+	$(CC) $(CFLAGS) -fPIC -c $^ -o expTester.o
+	$(CC) -shared expTester.o -o $@
 
 ./obj/library.o: ./dataManip/vxBits.c
 	$(CC) $(CFLAGS) -c $^ -o $@ 
 
 ./obj/test.o: test.c
-	$(CC) $(CFLAGS) -Ttext 0x9000 -c $^ -o $@
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 ./obj/stdLib.o: ./standardLib/vxStdlib.c
 	$(CC) $(CFLAGS) -c $^ -o $@

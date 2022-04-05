@@ -57,9 +57,9 @@ int vxDealloc(void *ptr, unsigned long int sizeArg) {
     }
 }
 
-int vxStdWrite(const char *string) {
+int vxStdWrite(const char *stringMessage) {
     int stdoutFD = fileno(stdout);
-    write(stdoutFD, string, strlen(string));
+    write(stdoutFD, stringMessage, strlen(stringMessage));
     return 1;
 }
 

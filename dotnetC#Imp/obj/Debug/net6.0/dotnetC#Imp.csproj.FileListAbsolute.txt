@@ -1,0 +1,15 @@
+/home/user_0/projects/vxBits/dotnetC#Imp/bin/Debug/net6.0/dotnetC#Imp
+/home/user_0/projects/vxBits/dotnetC#Imp/bin/Debug/net6.0/dotnetC#Imp.deps.json
+/home/user_0/projects/vxBits/dotnetC#Imp/bin/Debug/net6.0/dotnetC#Imp.runtimeconfig.json
+/home/user_0/projects/vxBits/dotnetC#Imp/bin/Debug/net6.0/dotnetC#Imp.dll
+/home/user_0/projects/vxBits/dotnetC#Imp/bin/Debug/net6.0/ref/dotnetC#Imp.dll
+/home/user_0/projects/vxBits/dotnetC#Imp/bin/Debug/net6.0/dotnetC#Imp.pdb
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.csproj.AssemblyReference.cache
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.GeneratedMSBuildEditorConfig.editorconfig
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.AssemblyInfoInputs.cache
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.AssemblyInfo.cs
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.csproj.CoreCompileInputs.cache
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.dll
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/ref/dotnetC#Imp.dll
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.pdb
+/home/user_0/projects/vxBits/dotnetC#Imp/obj/Debug/net6.0/dotnetC#Imp.genruntimeconfig.cache
