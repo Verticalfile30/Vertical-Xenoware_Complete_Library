@@ -43,6 +43,8 @@ void *vxAlloc(unsigned long sizeArg, int map, int fildes) {
             return pointer;
         }
     }
+
+    return (void *)-1;
 }
 
 int vxDealloc(void *ptr, unsigned long int sizeArg) {
@@ -55,9 +57,9 @@ int vxDealloc(void *ptr, unsigned long int sizeArg) {
     }
 }
 
-int vxStdWrite(const char *string) {
+int vxStdWrite(const char *stringMessage) {
     int stdoutFD = fileno(stdout);
-    write(stdoutFD, string, strlen(string));
+    write(stdoutFD, stringMessage, strlen(stringMessage));
     return 1;
 }
 
@@ -235,9 +237,19 @@ int vxNeoWrite(int fildes, const char *string, ...) {
 }
 
 
+void *memoryAllocateDriver() {
+    void *result = memoryAllocate();
+    return result;
+}
 
-
-
+/*
+*===========================================================================*
+* FUNCTION: vxTypeAlloc
+*
+* DESCRIPTION: This function really sucks
+*
+* RETURN: ptr type
+*===========================================================================*/
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes) {
     
     if(dataType == INTEGER) {
