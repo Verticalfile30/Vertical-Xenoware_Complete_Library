@@ -43,6 +43,8 @@ void *vxAlloc(unsigned long sizeArg, int map, int fildes) {
             return pointer;
         }
     }
+
+    return (void *)-1;
 }
 
 int vxDealloc(void *ptr, unsigned long int sizeArg) {
@@ -55,9 +57,9 @@ int vxDealloc(void *ptr, unsigned long int sizeArg) {
     }
 }
 
-int vxStdWrite(const char *string) {
+int vxStdWrite(const char *stringMessage) {
     int stdoutFD = fileno(stdout);
-    write(stdoutFD, string, strlen(string));
+    write(stdoutFD, stringMessage, strlen(stringMessage));
     return 1;
 }
 
@@ -140,6 +142,56 @@ int vxStreamWrite(int fildes, const char *string, ...) {
     return 1;
 }
 
+int vxStreamWriteArgs(int fildes, const char *string, va_list args) {
+
+    //va_list *list = vxAlloc(sizeof(va_list) * 30, ANON_ALLOC, -1); //allocate an array of 
+    va_list list[30];
+    va_copy(list[0], args);
+
+    va_copy(list[1], list[0]);
+    int nargN;
+    char nargC;
+    double nargD;
+    char *nargS;
+
+    vxStdWrite(string);
+
+    
+
+    for(int i = 0; i < 28 ; i++) {
+        va_copy(list[i + 2], list[i + 1]); //store the previous argument, if successful, "i" increments and the current argument is stored
+        if((nargN = va_arg(list[i + 2], int)) == INTEGER) { //va_arg acts like an increment
+            nargN = va_arg(list[i + 2], int);
+            vxIntWrite(nargN, fildes);
+            continue;
+
+        } 
+        va_copy(list[i + 2], list[i + 1]);
+        if ((nargN = va_arg(list[i + 2], int)) == CHARACTER) {
+            nargC = (char)va_arg(list[i + 2], int);
+            vxCharWrite(nargC, fildes);
+            continue;
+
+        }
+        va_copy(list[i + 2], list[i + 1]);
+        if ((nargN = va_arg(list[i + 2], int)) == DOUBLE) {
+            nargD = va_arg(list[i + 2], double);
+            vxDouWrite(nargD, fildes);
+            continue;
+
+        }
+        va_copy(list[i + 2], list[i + 1]);     
+        if ((nargN = va_arg(list[i + 2], int)) == STRING) {
+            nargS = va_arg(list[i + 2], char *);
+            vxStdWrite(nargS);
+            continue;
+
+        }
+    }
+
+    
+    return 1;
+}
 
 va_list *argIncrement(va_list *argList, int increment) {
     int tmp;
@@ -235,9 +287,19 @@ int vxNeoWrite(int fildes, const char *string, ...) {
 }
 
 
+void *memoryAllocateDriver() {
+    void *result = memoryAllocate();
+    return result;
+}
 
-
-
+/*
+*===========================================================================*
+* FUNCTION: vxTypeAlloc
+*
+* DESCRIPTION: This function really sucks
+*
+* RETURN: ptr type
+*===========================================================================*/
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes) {
     
     if(dataType == INTEGER) {

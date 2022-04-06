@@ -9,12 +9,16 @@
 #define DOUBLE 510911
 #define PAGESIZE
 
-#if (__STDC_VERSION__ != 201710L)
-    #error "You are using the wrong standard :("
-#endif
+//#if (__STDC_VERSION__ != 201710L)
+//#error "You are using the wrong standard :("
+//#endif
 
 #ifndef __amd64__
 #error "Only compilable on amd64 family of processors"
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 typedef struct pointer {
@@ -27,9 +31,12 @@ typedef struct pointer {
 USER LEVEL FUNCTIONS ONLY
 */
 int vxAllocChk(void *pointer);
+void *vxAlloc(unsigned long sizeArg, int map, int fildes);
+int vxDealloc(void *ptr, unsigned long int sizeArg);
 int vxStdWrite(const char *string);
 
 int vxStreamWrite(int fildes, const char *string, ...);
+int vxStreamWriteArgs(int fildes, const char *string, ...);
 int vxCharWrite(char arg, int fd);
 
 int vxNeoWrite(int fildes, const char *string, ...);
@@ -37,4 +44,8 @@ int vxNeoWrite(int fildes, const char *string, ...);
 ptr *vxTypeAlloc(unsigned long sizeArg, int dataType, int fildes);
 int vxTypeDealloc(ptr *object);
 
+extern void *memoryAllocate();
+#ifdef __cplusplus
+}
+#endif
 #endif
