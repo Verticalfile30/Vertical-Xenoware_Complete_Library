@@ -2,7 +2,10 @@
     "files.associations": {
         "stdint.h": "c",
         "string": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "vxbits.h": "c",
+        "test.C": "cpp",
+        "vxSLCPP.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

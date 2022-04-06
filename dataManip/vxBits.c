@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <limits.h>
+#include <stddef.h>
 #include "vxBits.h"
 
 #define HIGH 1
@@ -64,6 +65,7 @@ uint32_t bitMask(uint32_t bitField, uint8_t bitMagnitude, uint8_t option) {
         bitField = bitField >> bitMagnitude;
         return bitField;
     }
+
 }
 
 /*=============================================================================
@@ -76,18 +78,21 @@ RETURN: RETURNS A POINTER TO RESULTING ARRAY
 
 ANOMALOUS CLASS: SAFE
  *===========================================================================*/
-void *arrayReverser(void *array, int len, int type){
+const void *arrayReverser(void *array, int len, int type){
     if(type == INT) {
         static int result[32];
         int sentinel;
+        const void *returnPtr;
         int *intArray = array;
         for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
             result[i] = intArray[j];
             sentinel = i;
         }
         result[sentinel + 1] = INT_MAX;
+        returnPtr = result;
+        
 
-        return (void*)result;
+        return returnPtr;
     }
     if(type == SING_FLOAT) {
         static float result[32];
@@ -95,7 +100,7 @@ void *arrayReverser(void *array, int len, int type){
         for(int i = 0, j = len - 1; i < len || j > -1; i++, j--) {
             result[i] = singArray[j];
         }
-        return (void*)result;
+        return (const void*)result;
     }
     if(type == DOUBLE_FLOAT) {
         static double result[32];
